@@ -143,6 +143,7 @@ public enum Builtins {
 	IMG_SAMPLE_PAIRING("img_sample_pairing", true),
 	IMG_INVERT("img_invert", true),
 	IMG_POSTERIZE("img_posterize", true),
+	EVALUATE_AUGMENTATION_PIPELINE("evaluate_augmentation_pipeline", true),
 	IMPUTE_BY_MEAN("imputeByMean", true),
 	IMPUTE_BY_MEDIAN("imputeByMedian", true),
 	IMPUTE_BY_MODE("imputeByMode", true),
