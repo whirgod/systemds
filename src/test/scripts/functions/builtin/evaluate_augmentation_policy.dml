@@ -19,19 +19,20 @@
 #
 #-------------------------------------------------------------
 
-pipeline = read($pipeline)
+policy = read($policy)
 X_train = read($X_train)
 y_train = read($y_train)
 X_test = read($X_test)
 y_test = read($y_test)
+channels = ifdef($channels, 1)
 seed = ifdef($seed, -1)
 isize = $width * $height
 
-pipeline = matrix(pipeline, rows=$n_policies, cols=$n_transforms)
+policy = matrix(policy, rows=$n_subpolicies, cols=$n_transforms)
 X_train = matrix(X_train, rows=$n_train, cols=isize)
 y_train = matrix(y_train, rows=$n_train, cols=1)
 X_test = matrix(X_test, rows=$n_test, cols=isize)
 y_test = matrix(y_test, rows=$n_test, cols=1)
 
-score = evaluate_augmentation_pipeline(pipeline, X_train, y_train, X_test, y_test, $width, $height, seed)
+score = evaluate_augmentation_policy(policy, X_train, y_train, X_test, y_test, $width, $height, channels, seed)
 write(score, $out_file)

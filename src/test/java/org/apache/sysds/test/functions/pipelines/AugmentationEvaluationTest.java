@@ -28,7 +28,7 @@ import org.junit.Test;
 import java.util.HashMap;
 
 public class AugmentationEvaluationTest extends AutomatedTestBase {
-	private final static String TEST_NAME = "evaluate_augmentation_pipeline";
+	private final static String TEST_NAME = "evaluate_augmentation_policy";
 	private final static String TEST_DIR = "functions/builtin/";
 	private final static String TEST_CLASS_DIR = TEST_DIR + AugmentationEvaluationTest.class.getSimpleName() + "/";
 
@@ -45,7 +45,7 @@ public class AugmentationEvaluationTest extends AutomatedTestBase {
 		double[][] y_train = getRandomMatrix(n, 1, 0, 1, 1, 11);
 		double[][] X_test = getRandomMatrix(n/10, w*h, 0, 255, 1, 13);
 		double[][] y_test = getRandomMatrix(n/10, 1, 0, 1, 1, 19);
-		double[][] pipeline = new double[][] {
+		double[][] policy = new double[][] {
 				{1, 0.50, 0.20, 2, 0.75, 0.40, 3, 0.80, 0.60},
 				{2, 0.10, 0.80, 1, 0.30, 0.10, 0, 0.00, 0.00}
 		};
@@ -54,7 +54,7 @@ public class AugmentationEvaluationTest extends AutomatedTestBase {
 		fullDMLScriptName = HOME + TEST_NAME + ".dml";
 		programArgs = new String[] {
 				"-nvargs",
-				"pipeline=" + input("A"),
+				"policy=" + input("A"),
 				"X_train=" + input("B"),
 				"y_train=" + input("C"),
 				"X_test=" + input("D"),
@@ -63,12 +63,12 @@ public class AugmentationEvaluationTest extends AutomatedTestBase {
 				"height=" + h,
 				"n_train=" + n,
 				"n_test=" + n/10,
-				"n_policies=" + pipeline.length,
-				"n_transforms=" + pipeline[0].length,
+				"n_subpolicies=" + policy.length,
+				"n_transforms=" + policy[0].length,
 				"out_file=" + output("F")
 		};
 
-		writeInputMatrixWithMTD("A", pipeline, false);
+		writeInputMatrixWithMTD("A", policy, false);
 		writeInputMatrixWithMTD("B", X_train, false);
 		writeInputMatrixWithMTD("C", y_train, false);
 		writeInputMatrixWithMTD("D", X_test, false);
